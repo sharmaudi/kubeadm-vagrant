@@ -1,12 +1,12 @@
-#Purpose
+# Purpose
 This document provides instructions on bootstraping a 3 node kubernetes cluster with a single master on vagrant based VM environments. The repository also contains a vagrant file that can be used to run the vms.
 
-##Prerequisites
+## Prerequisites
 - Vagrant
 - Virtualbox or any other virtualization provider
 - jq
 
-##Vagrant file
+## Vagrant file
 In the default state, the vagrant file will create 3 ubuntu/xenial64 based virtual machines. Here are the details:
 
 | Name        | IP           | Role  |
@@ -16,7 +16,7 @@ In the default state, the vagrant file will create 3 ubuntu/xenial64 based virtu
 | worker-1 | 192.168.99.21     |    Worker |
 
 
-##Install the tools
+## Install the tools
 Run the following commands on all the VMs. If you are using [tmux]('https://github.com/tmux/tmux/wiki') or [iterm2]('https://www.iterm2.com/') you can use the sync pane feature to get this done on all machines at once.
 
 ```bash
@@ -34,7 +34,7 @@ sudo su -
 su vagrant
 ```
 
-##Initialize the Master
+## Initialize the Master
 Run the following command On controller-0. The `--pod-network-cidr=10.244.0.0/16` argument is only required if you want to use flannel as the network addon. If you want to use some other network see the kubeadm documentation at (https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/#tabs-pod-install-0)
 
 ```bash
@@ -58,7 +58,7 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Docume
 
 Copy the join command as printed on the console. You will need to run this command on the worker nodes. 
 
-##Join Worker Nodes:
+## Join Worker Nodes:
 Make sure the tools have been installed
 
 Modify the following changes to `/etc/defaults/kubelet` like so
@@ -87,7 +87,7 @@ scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
 
-##Verification
+## Verification
 
 Note: Requires [jq](https://stedolan.github.io/jq/)
 ```bash
