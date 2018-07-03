@@ -61,7 +61,7 @@ Copy the join command as printed on the console. You will need to run this comma
 ## Join Worker Nodes:
 Make sure the tools have been installed
 
-Modify the following changes to `/etc/defaults/kubelet` like so
+Modify the `/etc/defaults/kubelet` file like so
 
 ```bash
 cat /etc/default/kubelet 
@@ -81,7 +81,7 @@ sudo kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca
 ```
 
 
-Control the cluster from the host machine
+## Control the cluster from the host machine
 ```bash
 scp root@<master ip>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
